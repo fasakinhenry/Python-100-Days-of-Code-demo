@@ -1,0 +1,36 @@
+name: Python 100 Days of Code
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🔎 repo -> ${{ github.repository }} | branch -> ${{ github.ref }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: 🔐 Retrieve secrets
+        uses: actions/checkout@v3
+        env: # Set the secret as an input
+          OPEN_WEATHER_API_KEY: ${{ secrets.OPEN_WEATHER_API_KEY }}
+          PIXELA_USER: ${{ secrets.PIXELA_USER }}
+          PIXELA_TOKEN: ${{ secrets.PIXELA_TOKEN }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          RECIPIENT_PHONE_NUMBER: ${{ secrets.RECIPIENT_PHONE_NUMBER }}
+          TEST_SENDER_ADDR: ${{ secrets.TEST_SENDER_ADDR }}
+          TEST_SENDER_PW: ${{ secrets.TEST_SENDER_PW }}
+          TEST_RECIPIENT_ADDR: ${{ secrets.TEST_RECIPIENT_ADDR }}
+          SENDER_PHONE_NUMBER: ${{ secrets.SENDER_PHONE_NUMBER }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
